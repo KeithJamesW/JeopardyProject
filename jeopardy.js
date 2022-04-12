@@ -20,7 +20,7 @@
 const NUM_CATEGORIES = 6
 const HEIGHT = 5
 let categories = [];
-// let board = document.querySelector("#board")
+// let board = document.querySelector("#board") // #board is not even there in HTML
 /** Get NUM_CATEGORIES random category from API.
  *
  * Returns array of category ids
@@ -116,7 +116,7 @@ async function getCategory(catId) {
     } else if (clue.showing === "question") {
       msg = clue.answer;
       clue.showing = "answer";
-      countViewedAnswers += 1; // counting all answered here
+      countViewedAnswers += 1; // counting all answers here
     } else {
       // already showing answer; ignore
       return
@@ -125,7 +125,6 @@ async function getCategory(catId) {
     $(`#${catId}-${clueId}`).html(msg);
 
     // adding win condition to notify user they won
-    console.log('JJcountViewedAnswers: ', countViewedAnswers)
     if (countViewedAnswers == 30){  // since answers cannot exceed 30
       alert('Great job, you answered all the questions!')
     }
@@ -153,8 +152,8 @@ function hideLoadingView() {
  async function setupAndStart() {
     let catIds = await getCategoryIds();
 
-    categories = []; // need to reset this to empty so game restart's next time
-    countViewedAnswers = 0; // need to reset this to 0 so game restart's next time
+    categories = []; // need to reset this to empty so game restarts next time
+    countViewedAnswers = 0; // need to reset this to 0 so game restarts next time
 
     for (let catId of catIds) {
       categories.push(await getCategory(catId));
