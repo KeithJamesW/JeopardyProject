@@ -144,7 +144,7 @@ function hideLoadingView() {
 
  async function setupAndStart() {
     let catIds = await getCategoryIds();
-    // categories = [];
+    categories = []; // you need to empty this to restart
     for (let catId of catIds) {
       categories.push(await getCategory(catId));
     }
