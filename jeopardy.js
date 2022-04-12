@@ -25,6 +25,7 @@ let categories = [];
  *
  * Returns array of category ids
  */
+let countViewedAnswers = 0
 
 async function getCategoryIds() {
     const response = await axios.get('http://jservice.io/api/categories?count=20');
@@ -115,12 +116,19 @@ async function getCategory(catId) {
     } else if (clue.showing === "question") {
       msg = clue.answer;
       clue.showing = "answer";
+      countViewedAnswers += 1; // counting all answered here
     } else {
       // already showing answer; ignore
       return
     }
-  
+    
     $(`#${catId}-${clueId}`).html(msg);
+
+    // adding win condition to notify user they won
+    console.log('JJcountViewedAnswers: ', countViewedAnswers)
+    if (countViewedAnswers == 30){  // since answers cannot exceed 30
+      alert('Great job, you answered all the questions!')
+    }
   }
 /** Wipe the current Jeopardy board, show the loading spinner,
  * and update the button used to fetch data.
@@ -144,7 +152,10 @@ function hideLoadingView() {
 
  async function setupAndStart() {
     let catIds = await getCategoryIds();
-    categories = []; // you need to empty this to restart
+
+    categories = []; // need to reset this to empty so game restart's next time
+    countViewedAnswers = 0; // need to reset this to 0 so game restart's next time
+
     for (let catId of catIds) {
       categories.push(await getCategory(catId));
     }
