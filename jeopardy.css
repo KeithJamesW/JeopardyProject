@@ -1,4 +1,4 @@
-#jeopardy {
+#game-table {
   text-align: center;
   font-size: 9pt;
   background-color: #060ce9;
@@ -6,7 +6,7 @@
   border-collapse: collapse;
 }
 
-#jeopardy th, #jeopardy td {
+#game-table th, #game-table td {
   border: solid 1px white;
   width: 12em;
   padding: 1em;

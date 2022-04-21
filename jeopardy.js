@@ -20,21 +20,17 @@
 const NUM_CATEGORIES = 6
 const HEIGHT = 5
 let categories = [];
-let board = document.querySelector("#board")
+// let board = document.querySelector("#board") // #board is not even there in HTML
 /** Get NUM_CATEGORIES random category from API.
  *
  * Returns array of category ids
  */
+let countViewedAnswers = 0
 
 async function getCategoryIds() {
     const response = await axios.get('http://jservice.io/api/categories?count=20');
-    
-
-     let catIds = response.data.map(c => c.id)
-    
-    return _.sampleSize(catIds, NUM_CATEGORIES)
-
-
+    let catIds = response.data.map(c => c.id);
+    return _.sampleSize(catIds, NUM_CATEGORIES);
 }
 
 /** Return object with data about a category:
@@ -120,13 +116,18 @@ async function getCategory(catId) {
     } else if (clue.showing === "question") {
       msg = clue.answer;
       clue.showing = "answer";
+      countViewedAnswers += 1; // counting all answers here
     } else {
       // already showing answer; ignore
       return
     }
-  
-   
+    
     $(`#${catId}-${clueId}`).html(msg);
+
+    // adding win condition to notify user they won
+    if (countViewedAnswers == 30){  // since answers cannot exceed 30
+      alert('Great job, you answered all the questions!')
+    }
   }
 /** Wipe the current Jeopardy board, show the loading spinner,
  * and update the button used to fetch data.
@@ -150,25 +151,21 @@ function hideLoadingView() {
 
  async function setupAndStart() {
     let catIds = await getCategoryIds();
-  
-    // categories = [];
-  
+
+    categories = []; // need to reset this to empty so game restarts next time
+    countViewedAnswers = 0; // need to reset this to 0 so game restarts next time
+
     for (let catId of catIds) {
       categories.push(await getCategory(catId));
     }
-  
     fillTable();
   }
   
- 
-  
   $("#restart").on("click", setupAndStart);
-  
- 
   
   $(async function () {
       setupAndStart();
-      console.log("goodbye", $("#game-board"));
-      $("#game-board").on("click", "td", handleClick);
+      console.log("goodbye", $("#game-table"));
+      $("#game-table").on("click", "td", handleClick);
     }
   );
