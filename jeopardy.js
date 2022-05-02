@@ -20,6 +20,8 @@
 const NUM_CATEGORIES = 6
 const HEIGHT = 5
 let categories = [];
+const baseUrl = "http://jservice.io/api";
+const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
 // let board = document.querySelector("#board") // #board is not even there in HTML
 /** Get NUM_CATEGORIES random category from API.
  *
@@ -28,7 +30,7 @@ let categories = [];
 let countViewedAnswers = 0
 
 async function getCategoryIds() {
-    const response = await axios.get('http://jservice.io/api/categories?count=20');
+    const response = await axios.get(`${baseUrl}/categories?count=20`, {headers: headers});
     let catIds = response.data.map(c => c.id);
     return _.sampleSize(catIds, NUM_CATEGORIES);
 }
@@ -46,7 +48,7 @@ async function getCategoryIds() {
  */
 
 async function getCategory(catId) {
-  let response = await axios.get(`http://jservice.io/api/category?id=${catId}`);
+  let response = await axios.get(`${baseUrl}/category?id=${catId}`, {headers: headers});
   let cat = response.data;
   let allClues = cat.clues;
   let randomClues = _.sampleSize(allClues, HEIGHT);
