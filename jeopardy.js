@@ -20,8 +20,8 @@
 const NUM_CATEGORIES = 6
 const HEIGHT = 5
 let categories = [];
-const baseUrl = "http://jservice.io/api";
-const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+const baseUrl = "https://jservice.io/api";
+const headers = {'Access-Control-Allow-Origin': '*, 'Content-Type': 'application/x-www-form-urlencoded'};
 // let board = document.querySelector("#board") // #board is not even there in HTML
 /** Get NUM_CATEGORIES random category from API.
  *
