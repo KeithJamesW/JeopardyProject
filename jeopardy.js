@@ -21,7 +21,7 @@ const NUM_CATEGORIES = 6
 const HEIGHT = 5
 let categories = [];
 const baseUrl = "https://jservice.io/api";
-const headers = {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/x-www-form-urlencoded'};
+const headers = {};
 
 /** Get NUM_CATEGORIES random category from API.
  *
