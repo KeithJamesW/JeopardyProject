@@ -12,12 +12,18 @@ This Javascript application allows for users to participate in a game of Jeopard
 ## Demo
 
 Jeopardy! Beginning: 
+
+
 ![](https://github.com/KeithJamesW/JeopardyProject/blob/main/JeopardyBeginning.jpg)
 
 Jeopardy! Question:
+
+
 ![](https://github.com/KeithJamesW/JeopardyProject/blob/main/Jeopardy%20Question.jpg)
 
 Jeopardy! Answer: 
+
+
 ![](https://github.com/KeithJamesW/JeopardyProject/blob/main/Jeopardy%20Answer.jpg)
 
 ## Installation
